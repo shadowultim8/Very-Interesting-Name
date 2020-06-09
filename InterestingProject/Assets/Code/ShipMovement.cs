@@ -15,7 +15,7 @@ public class ShipMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
     
-    private void FixedUpdate()
+    private void Update()
     {
         float speedMultiply = Input.GetAxis("Vertical");
         float currentSpeed = 1f + speedMultiply * speed;

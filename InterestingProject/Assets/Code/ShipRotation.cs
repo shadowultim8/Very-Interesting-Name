@@ -8,15 +8,20 @@ public class ShipRotation : MonoBehaviour
 {
     private Rigidbody rb = null;
     [SerializeField] private float rotateSpeed = 1f;
+    [SerializeField] private float horizontalRotateSpeed = 1f;
     
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        Vector2 mouseDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-        rb.AddRelativeTorque(new Vector3(-mouseDelta.y, mouseDelta.x, 0) * rotateSpeed * Time.deltaTime, ForceMode.Impulse);
+        Vector2 mouseDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")) * rotateSpeed;
+        rb.AddRelativeTorque(new Vector3(-mouseDelta.y, mouseDelta.x, 
+            -Input.GetAxis("Horizontal") * horizontalRotateSpeed)
+            * Time.fixedDeltaTime, ForceMode.Impulse);
     }
+
+    
 }
